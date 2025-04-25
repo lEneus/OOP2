@@ -1,0 +1,70 @@
+package prr;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+public class NetSimulator extends JFrame implements ActionListener {
+
+    
+	
+	Area area = new Area();
+    ArrayList<Device> liste = new ArrayList<>();
+    Project pjct = new Project();
+    JToolBar tool = new JToolBar();
+    JButton addC, addS, delete;
+
+    public NetSimulator() {
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        add(area, BorderLayout.CENTER);
+        add(tool, BorderLayout.NORTH);
+        addC = new JButton("Add Computer");
+        addC.setBackground(new Color(30, 144, 255));
+        addC.setForeground(Color.WHITE);
+        addC.setFont(new Font("Arial", Font.BOLD, 14));
+        addS = new JButton("Add Switch");
+        addS.setBackground(new Color(30, 144, 255));
+        addS.setForeground(Color.WHITE);
+        addS.setFont(new Font("Arial", Font.BOLD, 14));
+        delete = new JButton("Delete device");
+        delete.setBackground(new Color(220, 20, 60));
+        delete.setForeground(Color.WHITE);
+        delete.setFont(new Font("Arial", Font.BOLD, 14));
+
+        tool.add(addC);
+        tool.add(addS);
+        tool.add(delete);
+
+        addC.addActionListener(this);
+        addS.addActionListener(this);
+        delete.addActionListener(this);
+
+        area.p = pjct;
+        
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(addC)) {
+            Computer c = new Computer();
+            pjct.addDevice(c);
+            area.addDevice(c);
+        } else if (e.getSource().equals(addS)) {
+            Switch s = new Switch();
+            pjct.addDevice(s);
+            area.addDevice(s);
+       }
+    }
+
+}
